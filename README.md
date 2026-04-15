@@ -14,6 +14,7 @@ A full-stack Customer Relationship Management (CRM) system built with Django (RE
 ## Tech Stack
 
 ### Backend
+
 - Django 6.0
 - Django REST Framework
 - SQLite (development)
@@ -21,6 +22,7 @@ A full-stack Customer Relationship Management (CRM) system built with Django (RE
 - CORS headers
 
 ### Frontend
+
 - React 19
 - Vite 8
 - TailwindCSS 4
@@ -57,6 +59,7 @@ crm/
 ## Setup
 
 ### Prerequisites
+
 - Python 3.10+
 - Node.js 18+
 - npm or yarn
@@ -64,6 +67,7 @@ crm/
 ### Backend Setup
 
 1. Create and activate virtual environment:
+
 ```bash
 cd backend
 python -m venv ../venv
@@ -72,22 +76,26 @@ source ../venv/bin/activate  # Linux/Mac
 ..\venv\Scripts\activate     # Windows
 ```
 
-2. Install dependencies:
+1. Install dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Run migrations:
+1. Run migrations:
+
 ```bash
 python manage.py migrate
 ```
 
-4. Create superuser:
+1. Create superuser:
+
 ```bash
 python manage.py createsuperuser
 ```
 
-5. Start server:
+1. Start server:
+
 ```bash
 python manage.py runserver
 ```
@@ -95,12 +103,14 @@ python manage.py runserver
 ### Frontend Setup
 
 1. Install dependencies:
+
 ```bash
 cd frontend
 npm install
 ```
 
-2. Start development server:
+1. Start development server:
+
 ```bash
 npm run dev
 ```
@@ -140,11 +150,13 @@ PAGE_SIZE=20
 ### Query Parameters
 
 All list endpoints support:
+
 - `?search=` - Search across fields
 - `?page=` - Pagination (default: 20 per page)
 - `?ordering=` - Sort by field (prefix with `-` for descending)
 
 Additional filters per endpoint:
+
 - **Leads**: `?stage=`, `?source=`, `?company=`
 - **Deals**: `?stage=`, `?company=`, `?contact=`, `?min_value=`, `?max_value=`
 - **Tasks**: `?status=`, `?priority=`, `?contact=`, `?deal=`
@@ -158,6 +170,7 @@ Additional filters per endpoint:
 ## Admin Panel
 
 Access Django admin at `http://localhost:8000/admin/` for:
+
 - User management
 - Data inspection and editing
 - Model configuration
