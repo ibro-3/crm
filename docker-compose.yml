@@ -1,4 +1,15 @@
 services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${DB_NAME:-crm}
+      POSTGRES_USER: ${DB_USER:-crmuser}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-crmpass}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - crm-network
+
   backend:
     build: ./backend
     ports:
@@ -8,9 +19,16 @@ services:
     env_file:
       - ./backend/.env
     environment:
-      - DEBUG=False
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=${DB_NAME:-crm}
+      - DB_USER=${DB_USER:-crmuser}
+      - DB_PASSWORD=${DB_PASSWORD:-crmpass}
+    depends_on:
+      - db
     command: >
-      sh -c "python manage.py migrate &&
+      sh -c "./wait-for-db.sh db 5432 &&
+             python manage.py migrate &&
              python manage.py collectstatic --noinput &&
              gunicorn crm.wsgi:application --bind 0.0.0.0:8000"
     networks:
@@ -28,3 +46,6 @@ services:
 networks:
   crm-network:
     driver: bridge
+
+volumes:
+  postgres_data:
